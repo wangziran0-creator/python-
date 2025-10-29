@@ -74,14 +74,16 @@ class TestGeoDistanceCalculator(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             self.calculator.calculate_distance(100.0, 0.0, 0.0, 0.0)
         
-        self.assertIn("纬度", str(context.exception).lower() or "latitude" in str(context.exception).lower())
+        exception_str = str(context.exception)
+        self.assertTrue("纬度" in exception_str or "latitude" in exception_str.lower())
         
     def test_invalid_longitude(self):
         """测试无效经度应该抛出异常 / Test that invalid longitude raises ValueError"""
         with self.assertRaises(ValueError) as context:
             self.calculator.calculate_distance(0.0, 200.0, 0.0, 0.0)
         
-        self.assertIn("经度", str(context.exception).lower() or "longitude" in str(context.exception).lower())
+        exception_str = str(context.exception)
+        self.assertTrue("经度" in exception_str or "longitude" in exception_str.lower())
         
     def test_invalid_unit(self):
         """测试无效单位应该抛出异常 / Test that invalid unit raises ValueError"""
